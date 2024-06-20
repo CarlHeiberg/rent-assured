@@ -1,0 +1,38 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+registries:
+  github-gh-actions:
+    type: git
+    url: https://github.com
+    username: carlheiberg
+    password: ${{secrets.GIT_TOKEN}}
+  github-docker-registry:
+    type: docker-registry
+    url: ghcr.io
+    username: carlheiberg
+    password: ${{secrets.GIT_TOKEN}}
+updates:
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/back-end" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/front-end/android/app" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub" # See documentation for possible values
+    directory: "/front-end" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
+    directory: "/"
+    registries:
+      - github-gh-actions
+      - github-docker-registry
+    schedule:
+      interval: "weekly"
